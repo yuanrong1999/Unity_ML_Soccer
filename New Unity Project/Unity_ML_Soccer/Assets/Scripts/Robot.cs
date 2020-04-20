@@ -62,7 +62,7 @@ public class Robot : Agent
     {
         var action = new float[2];
         action[0] = Input.GetAxis("Horizontal");
-        action[1] = Input.GetAxis("Vertiacl");
+        action[1] = Input.GetAxis("Vertical");
         return action;
     }
 
