@@ -22,13 +22,13 @@ public class Robot : Agent
         rigBall.velocity = Vector3.zero;
         rigBall.angularVelocity = Vector3.zero;
 
-        Vector3 posRobot = new Vector3(Random.Range(-2f, 2f), 0.1f, Random.Range(-2f, 0)); //Robot隨機位置
+        Vector3 posRobot = new Vector3(Random.Range(-1f, 1f), 0.1f, Random.Range(-2f, 0)); //Robot隨機位置
         transform.position = posRobot;
 
-        Vector3 posBall = new Vector3(Random.Range(-2f, 2f), 0.1f, Random.Range(1f, 2f)); //Soccer剛體隨機位置
+        Vector3 posBall = new Vector3(Random.Range(-1f, 1f), 0.1f, Random.Range(1f, 2f)); //Soccer剛體隨機位置
         rigBall.position = posBall;
 
-        Ball.complate = false;//設事件開始時通關條件尚未成功(足球尚未進入球門)
+        Ball.complete = false;//設事件開始時通關條件尚未成功(足球尚未進入球門)
     }
 
     public override void CollectObservations(VectorSensor sensor)//事件開始時:重新設定機器人與足球位置
@@ -39,14 +39,15 @@ public class Robot : Agent
         sensor.AddObservation(rigRobot.velocity.z);
     }
 
-    public override void AgentAction(float[] vectorAction)
+    public override void OnActionReceived(float[] vectorAction)
     {
         Vector3 control = Vector3.zero;
         control.x = vectorAction[0];
-        control.z = vectorAction[0];
+        control.z = vectorAction[1];
         rigRobot.AddForce(control * speed);
+        
 
-        if (Ball.complate)
+        if (Ball.complete)
         {
             SetReward(1);
             EndEpisode();
