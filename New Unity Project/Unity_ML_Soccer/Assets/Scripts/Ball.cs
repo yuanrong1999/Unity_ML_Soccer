@@ -2,11 +2,14 @@
 
 public class Ball : MonoBehaviour
 {
-    public static bool complete; //足球是否進門
+    /// <summary>
+    /// 足球是否進入球門
+    /// </summary>
+    public static bool complete;
 
-    private void OnTriggerEnter(Collider other) //觸發開始事件:碰到勾選Is Trigger物件會執行一次
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.name== "Football_goal_cube") //若碰到物件為Football_goal_cube(球門感應區)is true,則進入球門
+        if(other.name == "進球判斷")
         {
             complete = true;
         }
